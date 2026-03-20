@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView } from "react-native";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 
@@ -8,20 +8,47 @@ export default function SignInScreen({ navigation }: any) {
   return (
     <SafeAreaView style={s.wrapper}>
       <View style={s.container}>
-        <Text style={s.logo}>🏠</Text>
-        <Text style={s.title}>Chào mừng trở lại</Text>
-        <Text style={s.sub}>Đăng nhập để tiếp tục</Text>
+        <Text style={s.title}>Sign In</Text>
 
-        <TouchableOpacity style={s.btnPrimary} onPress={() => setIsLoggedIn(true)}>
-          <Text style={s.btnPrimaryText}>Đăng nhập</Text>
-        </TouchableOpacity>
+        <Text style={s.label}>Email ID</Text>
+        <TextInput
+          style={s.input}
+          placeholder="Enter your email here!"
+          placeholderTextColor="#bbb"
+          keyboardType="email-address"
+        />
 
-        <TouchableOpacity style={s.btnOutline} onPress={() => navigation.navigate("SignUp")}>
-          <Text style={s.btnOutlineText}>Tạo tài khoản mới</Text>
-        </TouchableOpacity>
+        <Text style={s.label}>Password</Text>
+        <TextInput
+          style={s.input}
+          placeholder="Enter your password here!"
+          placeholderTextColor="#bbb"
+          secureTextEntry
+        />
 
         <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")}>
-          <Text style={s.link}>Quên mật khẩu?</Text>
+          <Text style={s.forgot}>For got password?</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={s.btnPrimary} onPress={() => setIsLoggedIn(true)}>
+          <Text style={s.btnPrimaryText}>Sign In</Text>
+        </TouchableOpacity>
+
+        <Text style={s.orText}>Or sign in with</Text>
+
+        <View style={s.row}>
+          <TouchableOpacity style={s.btnGoogle}>
+            <Text style={s.btnGoogleText}>G  Google</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={s.btnFacebook}>
+            <Text style={s.btnFacebookText}>f  Facebook</Text>
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+          <Text style={s.signUpText}>
+            Not yet a member? <Text style={s.signUpLink}>Sign Up</Text>
+          </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -29,126 +56,32 @@ export default function SignInScreen({ navigation }: any) {
 }
 
 const s = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-    alignItems: "center",
+  wrapper: { flex: 1, width: "100%", maxWidth: 390, alignSelf: "center", backgroundColor: "#fff" },
+  container: { flex: 1, paddingHorizontal: 24, paddingTop: 40 },
+  title: { fontSize: 24, fontWeight: "700", textAlign: "center", marginBottom: 28, color: "#1a1a1a" },
+  label: { fontSize: 13, color: "#555", marginBottom: 6, marginTop: 14 },
+  input: {
+    borderWidth: 1, borderColor: "#ddd", borderRadius: 8,
+    padding: 12, fontSize: 14, color: "#333",
   },
-  container: {
-    flex: 1,
-    padding: 20,
-    width: "100%",
-    maxWidth: 390,
-    backgroundColor: "#fff",
-    borderWidth: 1,
-    borderColor: "#e0e0e0",
-    borderRadius: 16,
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 4,
-  },
-  logo: {
-    fontSize: 36,
-    textAlign: "center",
-    marginTop: 28,
-    marginBottom: 4,
-  },
-  avatar: {
-    alignSelf: "center",
-    backgroundColor: "#e8f0fe",
-    borderRadius: 40,
-    width: 60,
-    height: 60,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 28,
-    marginBottom: 4,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "700",
-    textAlign: "center",
-    color: "#1a1a1a",
-    marginTop: 4,
-  },
-  sub: {
-    fontSize: 13,
-    color: "#888",
-    textAlign: "center",
-    marginTop: 4,
-    marginBottom: 20,
-  },
+  forgot: { color: "#F5A623", textAlign: "right", marginTop: 8, fontSize: 13 },
   btnPrimary: {
-    backgroundColor: "#007AFF",
-    paddingVertical: 12,
-    borderRadius: 10,
-    alignItems: "center",
-    marginBottom: 10,
+    backgroundColor: "#F5A623", borderRadius: 8,
+    paddingVertical: 14, alignItems: "center", marginTop: 20,
   },
-  btnPrimaryText: {
-    color: "#fff",
-    fontSize: 15,
-    fontWeight: "600",
+  btnPrimaryText: { color: "#fff", fontWeight: "700", fontSize: 16 },
+  orText: { textAlign: "center", color: "#888", marginVertical: 16, fontSize: 13 },
+  row: { flexDirection: "row", gap: 12 },
+  btnGoogle: {
+    flex: 1, borderWidth: 1, borderColor: "#ddd", borderRadius: 8,
+    paddingVertical: 12, alignItems: "center",
   },
-  btnOutline: {
-    borderWidth: 1.5,
-    borderColor: "#007AFF",
-    paddingVertical: 12,
-    borderRadius: 10,
-    alignItems: "center",
-    marginBottom: 10,
+  btnGoogleText: { fontWeight: "600", fontSize: 14 },
+  btnFacebook: {
+    flex: 1, backgroundColor: "#3b5998", borderRadius: 8,
+    paddingVertical: 12, alignItems: "center",
   },
-  btnOutlineText: {
-    color: "#007AFF",
-    fontSize: 15,
-    fontWeight: "600",
-  },
-  btnDanger: {
-    backgroundColor: "#ff3b30",
-    paddingVertical: 12,
-    borderRadius: 10,
-    alignItems: "center",
-    marginTop: "auto",
-    marginBottom: 16,
-  },
-  link: {
-    color: "#007AFF",
-    textAlign: "center",
-    marginTop: 6,
-    fontSize: 13,
-  },
-  card: {
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    padding: 12,
-    marginBottom: 10,
-    shadowColor: "#000",
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 1 },
-    elevation: 1,
-  },
-  cardTitle: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: "#1a1a1a",
-    marginBottom: 4,
-  },
-  cardBody: {
-    fontSize: 12,
-    color: "#aaa",
-  },
-  placeholder: {
-    backgroundColor: "#eee",
-    borderRadius: 10,
-    padding: 16,
-    alignItems: "center",
-    marginBottom: 16,
-  },
-  placeholderText: {
-    color: "#aaa",
-    fontSize: 13,
-  },
+  btnFacebookText: { color: "#fff", fontWeight: "600", fontSize: 14 },
+  signUpText: { textAlign: "center", marginTop: 20, color: "#888", fontSize: 13 },
+  signUpLink: { color: "#F5A623", fontWeight: "600" },
 });
